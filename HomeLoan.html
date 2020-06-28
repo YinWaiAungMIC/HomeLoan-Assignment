@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<!-- Bootstrap Query -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			console.log('Document-ready');		
+		});
+
+		$(function(){
+
+			$('#cal').click(function(){
+				Calculate();
+			});
+
+
+
+
+		});
+
+		function Calculate(){
+			var p=+$('#mon').val();
+			var r=(+$('#int').val()/100)/12;
+			var n=+$('#yr').val()*12;
+			var amt=p*((r*(1+r)**n)/((1+r)**n-1)); 
+			var res=amt.toFixed();  
+
+					$('#mp').text(res.toLocaleString());
+					$('#totalint').text(r.toLocaleString());
+					$('#amt1').text(p.toLocaleString());
+					$('#intrate').text($('#int').val());
+					$('.year1').text($('#yr').val());
+					$('.yrr').text($('#yr').val());
+					$('.tbod').html('');
+
+				var mno=1,totalint=0;
+				for(var i=1;i<=12;i++){
+					var montint=p*r;
+					//mno++;
+
+					$('.tbod').append("<tr><td>"+"Month #"+i+"</td><td>"+p.toFixed()+"</td><td>"+montint.toFixed()+"</td><td>"+res+"</td></tr>");
+						p=p+montint-amt;
+						totalint+=montint;
+
+				}
+				
+		};
+	</script>
+	<div class="jumbotron">
+		<h1 class="ml-5">Home Loan Calculator</h1>
+		<h6 class="ml-5">အိမ်ရာချေးငွေတွက်ချက်ရန်</h6>
+	</div>
+
+	<div class="container">
+		<div class="offset-3">
+			<form>
+				<div class="form-group row">
+					<label for="fname" class="col-md-3">ချေးငွေပမာဏ:</label>
+					<div class="col-md-5">
+						<input type="number"  class="form-control" id="mon">
+					</div>
+
+				</div>
+				<div class="form-group row">
+					<label for="sname" class="col-md-3">အတိုးနှုန်း:</label>
+					<div class="col-md-5">
+						<input type="number"  class="form-control" id="int">
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="sname" class="col-md-3">ချေးယူမည့် နှစ်ပမာဏ:</label>
+					<div class="col-md-5">
+						<input type="number"  class="form-control" id="yr">
+					</div>
+				</div>
+
+			</form>
+
+
+
+			<div class="row">
+				<div class="col-md-2 my-2">			
+
+				</div>
+				<div class="col-md-2 my-2">			
+
+				</div>
+				<div class="col-md-2 my-2">			
+					<button class="btn btn-outline-primary btn-block" id="cal">တွက်ချက်ပါ</button>
+				</div>
+
+				<div class="col-md-2 my-2">
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<br>
+	<br>
+
+
+			<div class="container">
+				<div class="">
+				<div class="row">
+					
+					<div class="col-md-4">
+						
+						<table class="table table-bordered">
+							<thead>
+								<tr class="tableheading " style="background-color: skyblue;">
+									<th colspan="2">ချေးငွေပေးသွင်းမှု ပုံစံ (Your Loan Payment)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>လစဉ် ငွေပေးချေမှု</td>
+									<td><span id="mp"></span></td>
+								</tr>
+								<tr>
+									<td>(<span class="yrr"></span>) နှစ်အတွင်း စုစုပေါင်းအတိုး</td>
+									<td><span id="totalint"></span></td>
+								</tr>
+								<tr>
+									<td>ချေးငွေ ပမာဏ</td>
+									<td><span id="amt1"></span></td>
+								</tr>
+								<tr>
+									<td>အတိုးနှုန်း</td>
+									<td><span id="intrate"></span>%</td>
+								</tr>
+								<tr>
+									<td>ချေးယူမည့် နှစ်ပမာဏ</td>
+									<td><span class="year1"></span> နှစ်</td>
+								</tr>
+							</tbody>
+						</table>
+							
+
+						
+					</div>
+					
+
+
+					<div class="col-md-1"></div>
+
+					<div class="col-md-6">
+
+						<div class="row">
+							<div class="col-12 p3 text-center" style="background-color: skyblue;">
+								(၁) နှစ်တာ ချေးငွေပေးသွင်းမှု ပုံစံ(Loan Payment Over 1 Years)
+
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12 bg-light p-0">
+								<table class="table table-bordered">
+									<thead style="background-color: skyblue;">
+										<tr><th>
+										<label style="font-size: 13px;">ငွေပေးချေမည့်လ အရေအတွက်</label>
+										</th>
+										<th>
+											<label style="font-size: 13px;">
+											ချေးယူမည့်ပမာဏ
+										</label>
+										</th>
+										<th>
+											<label style="font-size: 13px;">
+											အတိုးနှုန်း
+										</label>
+										</th>
+										<th>
+											<label style="font-size: 13px;">
+											လစဉ် ငွေပေးချေမှု
+											</label>
+										</th>
+									</tr>
+									<tbody class="tbod"></tbody>
+
+								</thead>
+							</table>
+						</div>
+					</div>
+
+				</div>
+		</div>	
+		</div>
+	
+
+
+	</body>
+</html>
